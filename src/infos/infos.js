@@ -1,18 +1,28 @@
-document.addEventListener('DOMContentLoaded', function() {
-	const button = document.getElementById('sendNudes');
-	var currentTab;
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-	chrome.tabs.query({
-		active: true,
-		currentWindow: true
-	}, function (tabs) {
-		currentTab = tabs[0];
-	});
-
-	button.addEventListener('click', function(){
-		console.log(chrome.extension.getBackgroundPage());
-		chrome.tabs.executeScript(currentTab.id, {
-			code: 'console.log("pewpew")'
+class InfosComponent extends React.Component {
+	_injectConsoleLog(message){
+		chrome.tabs.executeScript(null, {
+			code: 'console.log("'+message+'")'
 		})
-	});
-});
+	}
+
+	_getStore() {
+
+		chrome.tabs.executeScript(null, {
+			file: './src/infos/injects/getStore.js'
+		});
+	}
+
+	render() {
+		return (
+			<div>
+				Application Infos
+				<button onClick={() => this._getStore()}>Send nudes!</button>
+			</div>
+		);
+	}
+}
+
+export default InfosComponent;
