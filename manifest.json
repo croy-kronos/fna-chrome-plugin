@@ -9,6 +9,14 @@
     "default_icon": "img/icon_kronos_16.png",
     "default_popup": "./src/popup.html"
   },
+  // "content_scripts": [
+  //   {
+  //     "matches": ["http://apps.kronos-dev.com/fna/*"],
+  //     "js": ["ContentScript.js"],
+  //     "all_frames": true
+  //   }
+  // ],
+  // "web_accessible_ressources": ["/src/helpers/ImportExportHelper.js"],
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/"

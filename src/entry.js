@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import ImportExport from './components/ImportExport.js';
+
 class MasterComponent extends React.Component {
 	render() {
 		return (
-			<div>
+			<div style={{ width: '400px', height: '400px' }}>
 				{/* INSERT COMPONENTS HERE */}
-				Hello World!
+				<ImportExport />
 			</div>
 		);
 	}
