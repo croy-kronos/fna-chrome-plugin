@@ -3,9 +3,11 @@ import ScriptInjector from '../helpers/Injector';
 
 class InfosComponent extends React.Component {
 	_getStore() {
+		const data = {
+			myTextFromData: 'This is my text'
+		};
 		const injector = new ScriptInjector();
-		injector.injectFromFile("./infos/injects/getStore.js", function(code){
-			console.log(code);
+		injector.injectFromFile("./infos/injects/getStore.js", data, function(code){
 			chrome.tabs.executeScript(null, {
 				code: code
 			});
@@ -13,8 +15,6 @@ class InfosComponent extends React.Component {
 	}
 
 	render() {
-		console.log();
-
 		return (
 			<div>
 				Application Infos

@@ -1,1 +1,2 @@
-console.log("Pewpew");
+console.log(Store.getModel());
+console.log(data.myTextFromData);
