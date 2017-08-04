@@ -62,7 +62,7 @@ class SaveFNAPreset extends Component {
             onChange={this.handleChange}
           />
           <Button
-            bsStyle="default"
+            bsStyle="primary"
             onClick={this.saveFNA}
           >
           Enregistrer

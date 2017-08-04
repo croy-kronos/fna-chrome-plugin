@@ -1,22 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { PanelGroup } from 'react-bootstrap';
 import InfosComponent from './infos/infos.js'
 import DebugComponent from './debug/debug.js';
-
 import ImportExport from './components/ImportExport.js';
-import SaveFNAPreset from './components/SaveFNAPreset.js';
-import LoadFNAPreset from './components/LoadFNAPreset.js';
+import FNAPreset from './components/FNAPreset.js';
 
 class MasterComponent extends React.Component {
 	render() {
 		return (
 			<div style={{ width: '400px', height: '400px' }}>
-				<InfosComponent />
-				<DebugComponent />
-				{/* INSERT COMPONENTS HERE */}
-				<ImportExport />
-				<SaveFNAPreset />
-				<LoadFNAPreset />
+				<PanelGroup>
+					<InfosComponent />
+					<DebugComponent />
+					<ImportExport />
+					<FNAPreset />
+				</PanelGroup>
 			</div>
 		);
 	}

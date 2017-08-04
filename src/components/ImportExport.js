@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ButtonToolbar, Button } from 'react-bootstrap';
+import { ButtonToolbar, Button, Panel } from 'react-bootstrap';
 import ScriptInjector from '../helpers/Injector';
 
 class ImportExport extends Component {
@@ -23,10 +23,12 @@ class ImportExport extends Component {
 
 	render() {
 		return (
-			<ButtonToolbar>
-				<Button bsStyle="primary" onClick={this.requestImport}>Importer un ABF</Button>
-				<Button bsStyle="primary">Exporter au format JSON</Button>
-			</ButtonToolbar>
+			<Panel header={ <h4>Import/Export</h4> }>
+				<ButtonToolbar>
+					<Button bsStyle="primary" onClick={this.requestImport}>Importer un ABF</Button>
+					<Button bsStyle="primary">Exporter au format JSON</Button>
+				</ButtonToolbar>
+			</Panel>
 		);
 	}
 }

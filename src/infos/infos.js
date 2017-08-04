@@ -1,10 +1,11 @@
 import React from 'react'
 import ScriptInjector from '../helpers/Injector';
 import { For } from 'jsx-control-statements';
+import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 class InfosComponent extends React.Component {
-	construct() {
-		this.super();
+	constructor(props) {
+		super(props);
 	}
 
 	_getStore() {
@@ -16,21 +17,20 @@ class InfosComponent extends React.Component {
 		const infos = [
 			{ label: "Version", value: "1.46.0.1" },
 			{ label: "FNA Id", value: 17 },
-			{ label: "Current user", value: "Fna sfl en" }
+			{ label: "Utilisateur courant", value: "Fna sfl en" }
 		];
 
 		return (
-			<div>
-				<h4>Application Infos</h4>
-				<ul>
+			<Panel header={ <h4>Informations</h4> }>
+				<ListGroup fill>
 					<For each="info" of={ infos }>
-						<li>
+						<ListGroupItem>
 							<label>{ info.label }:</label>
 							<span> { info.value }</span>
-						</li>
+						</ListGroupItem>
 					</For>
-				</ul>
-			</div>
+				</ListGroup>
+			</Panel>
 		);
 	}
 }
