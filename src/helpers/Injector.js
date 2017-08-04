@@ -19,15 +19,19 @@ class ScriptInjector {
 		rawFile.send();
 	}
 
-	injectFromFile(file, data, callback = () => {}){
+	injectFromFile(file, data = {}, callback = () => {}){
 		this.fetchFileContent(file, js_code => {
 			const oneLineData = JSON.stringify(data).replace(/\s+/g, ' ').replace(/"/g, '\'').trim();
 			const oneLineJavascript = js_code.replace(/\s+/g, ' ').trim();
 			const injection =
+				"var previousNode = document.getElementById('injectedScript');" +
+				"if(previousNode){" +
+				"document.head.removeChild(previousNode);}" +
 				"var script = document.createElement('script');" +
+				"script.setAttribute('id', 'injectedScript');" +
 				"script.setAttribute('type', 'text/javascript');" +
 				"script.textContent = \"(function() { const data = " + oneLineData + "; " + oneLineJavascript + " })();\";" +
-				"document.head.appendChild(script);"
+				"document.head.appendChild(script);";
 			this._injector(callback, injection);
 		});
 	}

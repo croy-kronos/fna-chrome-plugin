@@ -1,6 +1,7 @@
 import React from 'react'
 import ScriptInjector from '../helpers/Injector';
 import { For } from 'jsx-control-statements';
+import { Button } from 'react-bootstrap';
 
 class InfosComponent extends React.Component {
 	construct() {
@@ -9,7 +10,7 @@ class InfosComponent extends React.Component {
 
 	_getStore() {
 		const injector = new ScriptInjector();
-		injector.injectFromFile("./infos/injects/getStore.js", data);
+		injector.injectFromFile("./infos/injects/getStore.js");
 	}
 
 	render() {
@@ -21,6 +22,7 @@ class InfosComponent extends React.Component {
 
 		return (
 			<div>
+				<Button onClick={ this._getStore }>Pewpewpewpew</Button>
 				<h4>Application Infos</h4>
 				<ul>
 					<For each="info" of={ infos }>
