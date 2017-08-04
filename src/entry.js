@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import InfosComponent from './infos/infos.js'
+import DebugComponent from './debug/debug.js';
 
 import ImportExport from './components/ImportExport.js';
 import SaveFNAPreset from './components/SaveFNAPreset.js';
@@ -11,6 +12,7 @@ class MasterComponent extends React.Component {
 		return (
 			<div style={{ width: '400px', height: '400px' }}>
 				<InfosComponent />
+				<DebugComponent />
 				{/* INSERT COMPONENTS HERE */}
 				<ImportExport />
 				<SaveFNAPreset />
