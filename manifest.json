@@ -19,6 +19,7 @@
   // "web_accessible_ressources": ["/src/helpers/ImportExportHelper.js"],
   "permissions": [
     "activeTab",
+    "tabs",
     "https://ajax.googleapis.com/"
   ]
 }
