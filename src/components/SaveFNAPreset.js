@@ -26,7 +26,7 @@ class SaveFNAPreset extends Component {
 
   _addFNAToList(fna_json) {
     const fna_list = this._recoverFNAList();
-    fna_list.push(fna_json);
+    fna_list.push({filename: this.state.value, fna: fna_json});
 
     return fna_list;
   }

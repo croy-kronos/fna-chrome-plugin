@@ -17829,8 +17829,7 @@ var SaveFNAPreset = function (_Component) {
     key: '_addFNAToList',
     value: function _addFNAToList(fna_json) {
       var fna_list = this._recoverFNAList();
-      console.log(fna_list);
-      fna_list.push(fna_json);
+      fna_list.push({ filename: this.state.value, fna: fna_json });
 
       return fna_list;
     }
@@ -17838,7 +17837,9 @@ var SaveFNAPreset = function (_Component) {
     key: 'saveFNA',
     value: function saveFNA() {
       if (this.getValidationState() == 'success') {
-        var new_list = this._addFNAToList({ screen_name: "Georgio Simario", age: 55 });
+        var fna_json = { screen_name: "Georgio Simario", age: 55 }; // RECOVER FNA JSON FROM BROWSER
+        var new_list = this._addFNAToList(fna_json);
+
         localStorage.setItem('fna_list', JSON.stringify(new_list));
         this.setState({ status: "Sauvegarde reussie", value: "" });
       } else {
@@ -18001,6 +18002,10 @@ var _SaveFNAPreset = __webpack_require__(203);
 
 var _SaveFNAPreset2 = _interopRequireDefault(_SaveFNAPreset);
 
+var _LoadFNAPreset = __webpack_require__(442);
+
+var _LoadFNAPreset2 = _interopRequireDefault(_LoadFNAPreset);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -18026,7 +18031,8 @@ var MasterComponent = function (_React$Component) {
 				{ style: { width: '400px', height: '400px' } },
 				_react2.default.createElement(_infos2.default, null),
 				_react2.default.createElement(_ImportExport2.default, null),
-				_react2.default.createElement(_SaveFNAPreset2.default, null)
+				_react2.default.createElement(_SaveFNAPreset2.default, null),
+				_react2.default.createElement(_LoadFNAPreset2.default, null)
 			);
 		}
 	}]);
@@ -40879,6 +40885,675 @@ function isReactComponent(component) {
   return !!(component && component.prototype && component.prototype.isReactComponent);
 }
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 442 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactBootstrap = __webpack_require__(170);
+
+var _jsxControlStatements = __webpack_require__(450);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var LoadFNAPreset = function (_Component) {
+  _inherits(LoadFNAPreset, _Component);
+
+  function LoadFNAPreset(props) {
+    _classCallCheck(this, LoadFNAPreset);
+
+    var _this = _possibleConstructorReturn(this, (LoadFNAPreset.__proto__ || Object.getPrototypeOf(LoadFNAPreset)).call(this, props));
+
+    _this.state = { list: _this._recoverFNAList() };
+
+    _this.updateState = _this.updateState.bind(_this);
+    _this.loadSelectedFNA = _this.loadSelectedFNA.bind(_this);
+    return _this;
+  }
+
+  _createClass(LoadFNAPreset, [{
+    key: 'updateState',
+    value: function updateState() {
+      console.log(this._recoverFNAList());
+      this.setState({ list: this._recoverFNAList() });
+    }
+  }, {
+    key: 'loadSelectedFNA',
+    value: function loadSelectedFNA() {
+      // IMPORT SELECT FNA
+    }
+  }, {
+    key: '_recoverFNAList',
+    value: function _recoverFNAList() {
+      var fna_list = JSON.parse(localStorage.getItem('fna_list'));
+      return fna_list ? fna_list : [];
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'form',
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.DropdownButton,
+          {
+            title: "title",
+            key: "banana",
+            id: 'dropdown-basic-' + "banana",
+            onToggle: this.updateState,
+            onSelect: this.loadSelectedFNA
+          },
+          this.state.list.map(function (item, index) {
+            return _react2.default.createElement(
+              _reactBootstrap.MenuItem,
+              { eventKey: item.filename },
+              item.filename
+            );
+          }, this)
+        )
+      );
+    }
+  }]);
+
+  return LoadFNAPreset;
+}(_react.Component);
+
+exports.default = LoadFNAPreset;
+
+/***/ }),
+/* 443 */
+/***/ (function(module, exports) {
+
+var TYPES = {
+  ELEMENT: "JSXElement",
+  EXPRESSION_CONTAINER: "JSXExpressionContainer",
+  STRING_LITERAL: "StringLiteral"
+};
+
+function getTagName(node) {
+  return node.openingElement.name.name;
+}
+
+/**
+ * Test if this is a custom JSX element with the given name.
+ *
+ * @param {object} node - Current node to test
+ * @param {string} tagName - Name of element
+ * @returns {boolean} whether the searched for element was found
+ */
+exports.isTag = function(node, tagName) {
+  return node.type === TYPES.ELEMENT && getTagName(node) === tagName;
+};
+
+
+/**
+ * Tests whether this is an JSXExpressionContainer and returns it if true.
+ *
+ * @param {object} attribute - The attribute the value of which is tested
+ * @returns {boolean}
+ */
+exports.isExpressionContainer = function(attribute) {
+  return attribute && attribute.value.type === TYPES.EXPRESSION_CONTAINER;
+};
+
+/**
+ * Get expression from given attribute.
+ *
+ * @param {JSXAttribute} attribute
+ * @returns {Expression}
+ */
+exports.getExpression = function(attribute) {
+  return attribute.value.expression;
+};
+
+/**
+ * Tests whether this is an StringLiteral and returns it if true.
+ *
+ * @param {object} attribute - The attribute the value of which is tested
+ * @returns {boolean}
+ */
+exports.isStringLiteral = function(attribute) {
+  return attribute && attribute.value.type === TYPES.STRING_LITERAL;
+};
+
+/**
+ * Get all attributes from given element.
+ *
+ * @param {JSXElement} node - Current node from which attributes are gathered
+ * @returns {object} Map of all attributes with their name as key
+ */
+exports.getAttributeMap = function(node) {
+  return node.openingElement.attributes.reduce(function(result, attr) {
+    result[attr.name.name] = attr;
+    return result;
+  }, {});
+};
+
+/**
+ * Get the string value of a node's key attribute if present.
+ *
+ * @param {JSXElement} node - Node to get attributes from
+ * @returns {object} The string value of the key attribute of this node if present, otherwise undefined.
+ */
+exports.getKey = function(node) {
+  var key = exports.getAttributeMap(node).key;
+  return key ? key.value.value : undefined;
+};
+
+/**
+ * Get all children from given element. Normalizes JSXText and JSXExpressionContainer to expressions.
+ *
+ * @param {object} babelTypes - Babel lib
+ * @param {JSXElement} node - Current node from which children are gathered
+ * @returns {array} List of all children
+ */
+exports.getChildren = function(babelTypes, node) {
+  return babelTypes.react.buildChildren(node);
+};
+
+/**
+ * Adds attribute "key" to given node, if not already preesent.
+ *
+ * @param {object} babelTypes - Babel lib
+ * @param {JSXElement} node - Current node to which the new attribute is added
+ * @param {string} keyValue - Value of the key
+ */
+var addKeyAttribute = exports.addKeyAttribute = function(babelTypes, node, keyValue) {
+  var keyFound = false;
+
+  node.openingElement.attributes.forEach(function(attrib) {
+    if (babelTypes.isJSXAttribute(attrib) && attrib.name.name === "key") {
+      keyFound = true;
+      return false;
+    }
+  });
+
+  if (!keyFound) {
+    var keyAttrib = babelTypes.jSXAttribute(babelTypes.jSXIdentifier("key"), babelTypes.stringLiteral("" + keyValue));
+    node.openingElement.attributes.push(keyAttrib);
+  }
+};
+
+/**
+ * Return either a NullLiteral (if no content is available) or
+ * the single expression (if there is only one) or an ArrayExpression.
+ *
+ * @param babelTypes - Babel lib
+ * @param blocks - the content blocks
+ * @param keyPrefix - a prefix to use when automatically generating keys
+ * @returns {NullLiteral|Expression|ArrayExpression}
+ */
+exports.getSanitizedExpressionForContent = function(babelTypes, blocks, keyPrefix) {
+  if (!blocks.length) {
+    return babelTypes.NullLiteral();
+  }
+  else if (blocks.length === 1) {
+    var firstBlock = blocks[0];
+
+    if (keyPrefix && firstBlock.openingElement) {
+      addKeyAttribute(babelTypes, firstBlock, keyPrefix);
+    }
+
+    return firstBlock;
+  }
+
+  for (var i = 0; i < blocks.length; i++) {
+    var thisBlock = blocks[i];
+    if (babelTypes.isJSXElement(thisBlock)) {
+      var key = keyPrefix ? keyPrefix + "-" + i : i;
+      addKeyAttribute(babelTypes, thisBlock, key);
+    }
+  }
+
+  return babelTypes.arrayExpression(blocks);
+};
+
+
+/***/ }),
+/* 444 */
+/***/ (function(module, exports) {
+
+// http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format#answer-4673436
+function formatString(format) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  return format.replace(/{(\d+)}/g, function(match, number) {
+    return typeof args[number] !== "undefined" ? args[number] : match;
+  });
+}
+
+function throwError(errorMsg, infos) {
+  throw new Error(
+    [
+      exports.renderErrorMessage(errorMsg, infos),
+      " at ",
+      infos.file.opts.filename,
+      ": ",
+      infos.node.loc.start.line,
+      ",",
+      infos.node.loc.start.column
+    ].join("")
+  );
+}
+
+var ERRORS = exports.ERRORS = {
+  NO_ATTRIBUTE: "Attribute \"{0}\" is required for <{1}>, but missing!",
+  NOT_EXPRESSION_TYPE: "Attribute \"{0}\" of <{1}> tag must be an expression, e.g. \"{0}={ ... }\"",
+  NOT_STRING_TYPE: "Attribute \"{0}\" of <{1}> tag must be of type String, e.g. {0}=\"...\"",
+  CHOOSE_WITHOUT_WHEN: "<Choose> statement requires at least one <When> element!",
+  CHOOSE_OTHERWISE_NOT_LAST: "<Otherwise> must be the last element within a <Choose> statement!",
+  CHOOSE_WITH_MULTIPLE_OTHERWISE: "<Choose> statement allows only for one <Otherwise> block!",
+  CHOOSE_WITH_WRONG_CHILDREN: "Only <Otherwise> and <When> are allowed child elements for <Choose>!"
+};
+
+exports.renderErrorMessage = function(errorMsg, infos) {
+  var args = [];
+  if (infos) {
+    args.push(infos.attribute);
+    args.push(infos.element);
+  }
+  return formatString(errorMsg, args);
+};
+
+exports.throwNoAttribute = function(attributeName, infos) {
+  infos.attribute = attributeName;
+  throwError(ERRORS.NO_ATTRIBUTE, infos);
+};
+
+exports.throwNotExpressionType = function(attributeName, infos) {
+  infos.attribute = attributeName;
+  throwError(ERRORS.NOT_EXPRESSION_TYPE, infos);
+};
+
+exports.throwNotStringType = function(attributeName, infos) {
+  infos.attribute = attributeName;
+  throwError(ERRORS.NOT_STRING_TYPE, infos);
+};
+
+exports.throwChooseWithoutWhen = function(infos) {
+  throwError(ERRORS.CHOOSE_WITHOUT_WHEN, infos);
+};
+
+exports.throwChooseOtherwiseNotLast = function(infos) {
+  throwError(ERRORS.CHOOSE_OTHERWISE_NOT_LAST, infos);
+};
+
+exports.throwChooseWithMultipleOtherwise = function(infos) {
+  throwError(ERRORS.CHOOSE_WITH_MULTIPLE_OTHERWISE, infos);
+};
+
+exports.throwChooseWithWrongChildren = function(infos) {
+  throwError(ERRORS.CHOOSE_WITH_WRONG_CHILDREN, infos);
+};
+
+
+
+/***/ }),
+/* 445 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var astUtil = __webpack_require__(443);
+var errorUtil = __webpack_require__(444);
+
+
+var ATTRIBUTES = {
+  CONDITION: "condition"
+};
+
+exports.getConditionExpression = function(node, errorInfos) {
+  var condition = astUtil.getAttributeMap(node)[ATTRIBUTES.CONDITION];
+
+  if (!condition) {
+    errorUtil.throwNoAttribute(ATTRIBUTES.CONDITION, errorInfos);
+  }
+  if (!astUtil.isExpressionContainer(condition)) {
+    errorUtil.throwNotExpressionType(ATTRIBUTES.CONDITION, errorInfos);
+  }
+
+  return astUtil.getExpression(condition);
+};
+
+
+/***/ }),
+/* 446 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+exports.default = function () {
+  return {
+    manipulateOptions: function manipulateOptions(opts, parserOpts) {
+      parserOpts.plugins.push("jsx");
+    }
+  };
+};
+
+module.exports = exports["default"];
+
+/***/ }),
+/* 447 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var astUtil = __webpack_require__(443);
+var conditionalUtil = __webpack_require__(445);
+var errorUtil = __webpack_require__(444);
+
+var ELEMENTS = {
+  CHOOSE: "Choose",
+  WHEN: "When",
+  OTHERWISE: "Otherwise"
+};
+
+
+function getBlocks(types, children, errorInfos, key) {
+  var childNodes;
+  var startResult = {};
+  startResult[ELEMENTS.WHEN] = [];
+
+  var result = children.reduceRight(function(resultSoFar, child) {
+    if (astUtil.isTag(child, ELEMENTS.OTHERWISE)) {
+      childNodes = astUtil.getChildren(types, child);
+      errorInfos.element = ELEMENTS.OTHERWISE;
+      errorInfos.node = child;
+
+      if (resultSoFar[ELEMENTS.WHEN].length) {
+        errorUtil.throwChooseOtherwiseNotLast(errorInfos);
+      }
+      else if (resultSoFar[ELEMENTS.OTHERWISE]) {
+        errorUtil.throwChooseWithMultipleOtherwise(errorInfos);
+      }
+
+      resultSoFar[ELEMENTS.OTHERWISE] = astUtil.getSanitizedExpressionForContent(types, childNodes, key);
+    }
+    else if (astUtil.isTag(child, ELEMENTS.WHEN)) {
+      childNodes = astUtil.getChildren(types, child);
+      errorInfos.element = ELEMENTS.WHEN;
+      errorInfos.node = child;
+
+      resultSoFar[ELEMENTS.WHEN].push({
+        condition: conditionalUtil.getConditionExpression(child, errorInfos),
+        children: astUtil.getSanitizedExpressionForContent(types, childNodes, key)
+      });
+    }
+    else {
+      errorInfos.element = ELEMENTS.CHOOSE;
+      errorInfos.node = child;
+      errorUtil.throwChooseWithWrongChildren(errorInfos);
+    }
+
+    return resultSoFar;
+  }, startResult);
+
+  if (!result[ELEMENTS.OTHERWISE]) {
+    result[ELEMENTS.OTHERWISE] = types.NullLiteral();
+  }
+
+  return result;
+}
+
+module.exports = function(babel) {
+  var types = babel.types;
+
+  return function(node, file) {
+    var errorInfos = { node: node, file: file, element: ELEMENTS.CHOOSE };
+    var children = astUtil.getChildren(types, node);
+    var key = astUtil.getKey(node);
+    var blocks = getBlocks(types, children, errorInfos, key);
+    var ternaryExpression = blocks[ELEMENTS.OTHERWISE];
+
+    if (!blocks[ELEMENTS.WHEN].length) {
+      errorInfos.node = node;
+      errorUtil.throwChooseWithoutWhen(errorInfos);
+    }
+
+    blocks[ELEMENTS.WHEN].forEach(function(whenBlock) {
+      ternaryExpression = types.ConditionalExpression(whenBlock.condition, whenBlock.children, ternaryExpression);
+    });
+
+    return ternaryExpression;
+  };
+};
+
+
+/***/ }),
+/* 448 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var astUtil = __webpack_require__(443);
+var errorUtil = __webpack_require__(444);
+
+var ELEMENTS = {
+  FOR: "For"
+};
+var ATTRIBUTES = {
+  EACH: "each",
+  OF: "of",
+  INDEX: "index"
+};
+
+function addMapParam(types, params, attributes, attributeKey) {
+  var attribute = attributes[attributeKey];
+  if (attribute && attribute.value) {
+    params.push(types.Identifier(attribute.value.value));
+  }
+  else {
+    params.push(types.Identifier(attributeKey));
+  }
+}
+
+function checkForString(attributes, name, errorInfos) {
+  if (attributes[name] && !astUtil.isStringLiteral(attributes[name])) {
+    errorUtil.throwNotStringType(name, errorInfos);
+  }
+}
+
+function checkForExpression(attributes, name, errorInfos) {
+  if (attributes[name] && !astUtil.isExpressionContainer(attributes[name])) {
+    errorUtil.throwNotExpressionType(name, errorInfos);
+  }
+}
+
+module.exports = function(babel) {
+  var types = babel.types;
+
+  return function(node, file) {
+    var mapParams = [];
+    var errorInfos = { node: node, file: file, element: ELEMENTS.FOR };
+    var attributes = astUtil.getAttributeMap(node);
+    var children = astUtil.getChildren(types, node);
+    var returnExpression = astUtil.getSanitizedExpressionForContent(types, children);
+
+    // required attribute
+    if (!attributes[ATTRIBUTES.OF]) {
+      errorUtil.throwNoAttribute(ATTRIBUTES.OF, errorInfos);
+    }
+    // check for correct data types, as far as possible
+    checkForExpression(attributes, ATTRIBUTES.OF, errorInfos);
+    checkForString(attributes, ATTRIBUTES.EACH, errorInfos);
+    checkForString(attributes, ATTRIBUTES.INDEX, errorInfos);
+
+    // simply return without any child nodes
+    if (!children.length) {
+      return returnExpression;
+    }
+
+    addMapParam(types, mapParams, attributes, ATTRIBUTES.EACH);
+    addMapParam(types, mapParams, attributes, ATTRIBUTES.INDEX);
+
+    return types.callExpression(
+      types.memberExpression(
+        attributes[ATTRIBUTES.OF].value.expression,
+        types.identifier("map")
+      ),
+      [
+        types.functionExpression(
+          null,
+          mapParams,
+          types.blockStatement([
+            types.returnStatement(returnExpression)
+          ])
+        ),
+        types.identifier("this")
+      ]
+    );
+  };
+};
+
+
+/***/ }),
+/* 449 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var astUtil = __webpack_require__(443);
+var conditionalUtil = __webpack_require__(445);
+
+var ELEMENTS = {
+  IF: "If",
+  ELSE: "Else"
+};
+
+function getBlocks(nodes) {
+  var result = {
+    ifBlock: [],
+    elseBlock: []
+  };
+  var currentBlock = result.ifBlock;
+
+  nodes.forEach(function(node) {
+    if (astUtil.isTag(node, ELEMENTS.ELSE)) {
+      currentBlock = result.elseBlock;
+    }
+    else {
+      currentBlock.push(node);
+    }
+  });
+
+  return result;
+}
+
+module.exports = function ifStatement(babel) {
+  var types = babel.types;
+
+  return function(node, file) {
+    var ifBlock;
+    var elseBlock;
+    var errorInfos = {node: node, file: file, element: ELEMENTS.IF};
+    var condition = conditionalUtil.getConditionExpression(node, errorInfos);
+    var key = astUtil.getKey(node);
+    var children = astUtil.getChildren(types, node);
+    var blocks = getBlocks(children);
+
+    ifBlock = astUtil.getSanitizedExpressionForContent(types, blocks.ifBlock, key);
+    elseBlock = astUtil.getSanitizedExpressionForContent(types, blocks.elseBlock, key);
+
+    return types.ConditionalExpression(condition, ifBlock, elseBlock);
+  };
+};
+
+
+/***/ }),
+/* 450 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var transformFor = __webpack_require__(448);
+var transformIf = __webpack_require__(449);
+var transformChoose = __webpack_require__(447);
+var transformWith = __webpack_require__(451);
+
+
+module.exports = function jcsPlugin(babel) {
+  var nodeHandlers = {
+    For: transformFor(babel),
+    If: transformIf(babel),
+    Choose: transformChoose(babel),
+    With: transformWith(babel)
+  };
+
+  var visitor = {
+    JSXElement: function(path) {
+      var nodeName = path.node.openingElement.name.name;
+      var handler = nodeHandlers[nodeName];
+
+      if (handler) {
+        path.replaceWith(handler(path.node, path.hub.file));
+      }
+    }
+  };
+
+  return {
+    inherits: __webpack_require__(446),
+    visitor: visitor
+  };
+};
+
+
+/***/ }),
+/* 451 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var astUtil = __webpack_require__(443);
+
+module.exports = function(babel) {
+  var types = babel.types;
+
+  return function(node) {
+    var params = [];
+    var values = [];
+    var key = astUtil.getKey(node);
+    var attributes = astUtil.getAttributeMap(node);
+    var children = astUtil.getChildren(types, node);
+
+    Object.keys(attributes).forEach(function(attribute) {
+      params.push(types.identifier(attribute));
+      if (astUtil.isExpressionContainer(attributes[attribute])) {
+        values.push(attributes[attribute].value.expression);
+      }
+      else {
+        values.push(attributes[attribute].value);
+      }
+    });
+
+    values.unshift(types.identifier("this"));
+
+    return types.callExpression(
+      types.memberExpression(
+        types.functionExpression(
+          null,
+          params,
+          types.blockStatement([
+            types.returnStatement(
+              astUtil.getSanitizedExpressionForContent(types, children, key)
+            )
+          ])
+        ),
+        types.identifier("call")
+      ),
+      values
+    );
+  };
+};
+
 
 /***/ })
 /******/ ]);
