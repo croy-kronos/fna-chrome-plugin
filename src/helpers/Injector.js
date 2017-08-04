@@ -1,31 +1,34 @@
-/**
- * Created by jsgarneau on 17-06-09.
- */
 class ScriptInjector {
+	constructor() {
+		this._injector = function(callback, code_to_inject) {
+			chrome.tabs.executeScript(null, {
+				code: code_to_inject
+			});
+			callback();
+		};
+	}
+
 	fetchFileContent(file, callback){
-		var rawFile = new XMLHttpRequest();
+		const rawFile = new XMLHttpRequest();
 		rawFile.open("GET", file, true);
-		rawFile.onreadystatechange = function (event)
-		{
-			if(event.target.readyState === 4)
-			{
-				var allText = event.target.responseText;
-				callback(allText);
+		rawFile.onreadystatechange = event => {
+			if(event.target.readyState === 4) {
+				callback(event.target.responseText);
 			}
 		};
 		rawFile.send();
 	}
 
-	injectFromFile(file, data = {}, callback){
-		this.fetchFileContent(file, function(javascript){
-			var oneLineData = JSON.stringify(data).replace(/\s+/g, ' ').trim();
-			var oneLineJavascript = javascript.replace(/\s+/g, ' ').trim();
-			var injection =
-				`var script = document.createElement('script');
-				script.setAttribute('type', 'text/javascript');
-				script.textContent = '(function() { const data = ${oneLineData}; ${oneLineJavascript} })();';
-				document.head.appendChild(script);`;
-			callback(injection);
+	injectFromFile(file, data, callback = () => {}){
+		this.fetchFileContent(file, js_code => {
+			const oneLineData = JSON.stringify(data).replace(/\s+/g, ' ').replace(/"/g, '\'').trim();
+			const oneLineJavascript = js_code.replace(/\s+/g, ' ').trim();
+			const injection =
+				"var script = document.createElement('script');" +
+				"script.setAttribute('type', 'text/javascript');" +
+				"script.textContent = \"(function() { const data = " + oneLineData + "; " + oneLineJavascript + " })();\";" +
+				"document.head.appendChild(script);"
+			this._injector(callback, injection);
 		});
 	}
 }

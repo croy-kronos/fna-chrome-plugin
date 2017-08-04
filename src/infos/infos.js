@@ -9,11 +9,7 @@ class InfosComponent extends React.Component {
 
 	_getStore() {
 		const injector = new ScriptInjector();
-		injector.injectFromFile("./infos/injects/getStore.js", data, function(code){
-			chrome.tabs.executeScript(null, {
-				code: code
-			});
-		});
+		injector.injectFromFile("./infos/injects/getStore.js", data);
 	}
 
 	render() {

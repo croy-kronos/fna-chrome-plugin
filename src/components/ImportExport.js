@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ButtonToolbar, Button } from 'react-bootstrap';
+import ScriptInjector from '../helpers/Injector';
 
 class ImportExport extends Component {
 	constructor(props) {
@@ -8,25 +9,23 @@ class ImportExport extends Component {
 		this.state = {
 			showing_results_section: false
 		};
+		this.injector = new ScriptInjector();
 
 		this.requestImport = this.requestImport.bind(this);
 	}
 
-	componentWilMount() {
-		document.addEventListener("message", (e) => {
-			console.log(e.data.text);
-		});
-	}
-
 	requestImport() {
-		chrome.tabs.executeScript(null, {file: './src/helpers/ImportExportHelper.js'});
+		const data = {
+			action: 'import'
+		};
+		this.injector.injectFromFile("./components/injects/ImportExportInject.js", data);
 	}
 
 	render() {
 		return (
 			<ButtonToolbar>
-				<Button bsStyle="primary" onClick={this.requestImport}>Import FNA</Button>
-				<Button bsStyle="primary">Export to JSON</Button>
+				<Button bsStyle="primary" onClick={this.requestImport}>Importer un ABF</Button>
+				<Button bsStyle="primary">Exporter au format JSON</Button>
 			</ButtonToolbar>
 		);
 	}
