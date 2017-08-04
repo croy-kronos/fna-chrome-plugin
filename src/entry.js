@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import InfosComponent from './infos/infos.js'
 
 import ImportExport from './components/ImportExport.js';
+import SaveFNAPreset from './components/SaveFNAPreset.js';
 
 class MasterComponent extends React.Component {
 	render() {
@@ -11,6 +12,7 @@ class MasterComponent extends React.Component {
 				<InfosComponent />
 				{/* INSERT COMPONENTS HERE */}
 				<ImportExport />
+				<SaveFNAPreset />
 			</div>
 		);
 	}
