@@ -1,6 +1,6 @@
 import React from 'react'
 import ScriptInjector from '../helpers/Injector';
-import { Button } from 'react-bootstrap';
+import { Button, Panel } from 'react-bootstrap';
 
 class DebugComponent extends React.Component {
 	_toggleDebug() {
@@ -14,10 +14,9 @@ class DebugComponent extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h4>Debug ABF</h4>
+			<Panel header={ <h4>Debug ABF</h4> }>
 				<Button bsStyle="primary" onClick={() => this._toggleDebug()}>Toggle DEBUG</Button>
-			</div>
+			</Panel>
 		);
 	}
 }
