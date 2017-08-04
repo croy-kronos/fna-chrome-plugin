@@ -16,7 +16,7 @@ class ScriptInjector {
 		rawFile.send();
 	}
 
-	injectFromFile(file, data, callback){
+	injectFromFile(file, data = {}, callback){
 		this.fetchFileContent(file, function(javascript){
 			var oneLineData = JSON.stringify(data).replace(/\s+/g, ' ').trim();
 			var oneLineJavascript = javascript.replace(/\s+/g, ' ').trim();
