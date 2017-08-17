@@ -41,7 +41,7 @@ class ScriptInjector {
 				script.textContent = \"(function() {\
 					const data = " + oneLineData + "; " + oneLineJavascript + "})();\";\
 				document.head.appendChild(script);\
-				chrome.runtime.sendMessage({ type: " + requestType + ", data: document.getElementById('fnaChromePluginData').textContent }, function(response) { \
+				chrome.runtime.sendMessage({ type: '" + requestType + "', data: document.getElementById('fnaChromePluginData').textContent }, function(response) { \
 					\
 				});";
 			this._injector(callback, injection);

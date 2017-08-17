@@ -10,7 +10,9 @@ class MasterComponent extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {};
+		this.state = {
+			infos: {}
+		};
 
 		chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 			const data = JSON.parse(request.data);
@@ -22,7 +24,6 @@ class MasterComponent extends React.Component {
 				case 'presets':
 				case 'importExport':
 			}
-			this.setState({infos: data});
 		});
 	}
 

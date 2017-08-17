@@ -8,23 +8,21 @@ class InfosComponent extends React.Component {
 		super(props);
 
 		const injector = new ScriptInjector();
-		injector.injectFromFile("./infos/injects/getStore.js");
+		injector.injectFromFile('./infos/injects/getInformations.js', 'infos');
 	}
 
 	render() {
-		const infos = [
-			{ label: "Version", value: "1.46.0.1" },
-			{ label: "FNA Id", value: 17 },
-			{ label: "Utilisateur courant", value: "Fna sfl en" }
+		const { infos } = this.props;
+		const labeledInfo = [
+			{ label: 'Version', value: infos.app_version },
+			{ label: 'FNA Id', value: infos.fna_id },
+			{ label: 'Utilisateur courant', value: `${infos.user_name} (${infos.user_email})` }
 		];
 
 		return (
 			<Panel header={ <h4>Informations</h4> }>
 				<ListGroup fill>
-					<ListGroupItem>
-						<button onClick={this._getStore}>Get Store</button>
-					</ListGroupItem>
-					<For each="info" of={ infos }>
+					<For each="info" of={ labeledInfo }>
 						<ListGroupItem>
 							<label>{ info.label }:</label>
 							<span> { info.value }</span>
