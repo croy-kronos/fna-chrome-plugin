@@ -7,6 +7,14 @@ import ImportExport from './components/ImportExport.js';
 import FNAPreset from './components/FNAPreset.js';
 
 class MasterComponent extends React.Component {
+	constructor(props) {
+		super(props);
+		chrome.runtime.onMessage.addListener(
+			function(request, sender, sendResponse) {
+				console.log(JSON.parse(request.data));
+			});
+	}
+
 	render() {
 		return (
 			<div style={{ width: '400px', height: '400px' }}>

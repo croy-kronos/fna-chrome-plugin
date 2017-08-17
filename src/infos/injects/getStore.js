@@ -1,1 +1,1 @@
-console.log('Pawpaw');
+$('#fnaChromePluginData').text(JSON.stringify(Store.getModel()));

@@ -4,10 +4,6 @@ import { For } from 'jsx-control-statements';
 import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 class InfosComponent extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	_getStore() {
 		const injector = new ScriptInjector();
 		injector.injectFromFile("./infos/injects/getStore.js");
@@ -23,6 +19,9 @@ class InfosComponent extends React.Component {
 		return (
 			<Panel header={ <h4>Informations</h4> }>
 				<ListGroup fill>
+					<ListGroupItem>
+						<button onClick={this._getStore}>Get Store</button>
+					</ListGroupItem>
 					<For each="info" of={ infos }>
 						<ListGroupItem>
 							<label>{ info.label }:</label>

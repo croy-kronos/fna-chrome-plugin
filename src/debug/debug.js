@@ -5,11 +5,7 @@ import { Button, Panel } from 'react-bootstrap';
 class DebugComponent extends React.Component {
 	_toggleDebug() {
 		const injector = new ScriptInjector();
-		injector.injectFromFile("./debug/injects/toggleDebug.js", null, function(code){
-			chrome.tabs.executeScript(null, {
-				code: code
-			});
-		});
+		injector.injectFromFile("./debug/injects/toggleDebug.js");
 	}
 
 	render() {
