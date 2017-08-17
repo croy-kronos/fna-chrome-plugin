@@ -11,14 +11,31 @@ class ImportExport extends Component {
 		};
 		this.injector = new ScriptInjector();
 
+		this.exportToJSON = this.exportToJSON.bind(this);
 		this.requestImport = this.requestImport.bind(this);
 	}
 
-	requestImport() {
-		const data = {
-			action: 'import'
-		};
+	handleAction(data) {
 		this.injector.injectFromFile("./components/injects/ImportExportInject.js", data);
+	}
+
+	requestImport() {
+		const input = document.createElement('input');
+		let json = '';
+		input.type = 'file';
+		input.onchange = () => {
+			const reader = new FileReader();
+			reader.onload = event => {
+				// this.handleAction({ action: 'import', json: event.target.result });
+				this.handleAction({ action: 'import', json: 'wtf' });
+			};
+			reader.readAsText(input.files[0]);
+		};
+		input.click();
+	}
+
+	exportToJSON() {
+		this.handleAction({ action: 'export' });
 	}
 
 	render() {
@@ -26,7 +43,7 @@ class ImportExport extends Component {
 			<Panel header={ <h4>Import/Export</h4> }>
 				<ButtonToolbar>
 					<Button bsStyle="primary" onClick={this.requestImport}>Importer un ABF</Button>
-					<Button bsStyle="primary">Exporter au format JSON</Button>
+					<Button bsStyle="primary" onClick={this.exportToJSON}>Exporter au format JSON</Button>
 				</ButtonToolbar>
 			</Panel>
 		);

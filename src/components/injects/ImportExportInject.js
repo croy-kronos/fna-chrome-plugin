@@ -1,10 +1,17 @@
 switch(data.action) {
 	case 'import':
-		console.log('importing...');
+		try {
+			console.log(data);
+		}
+		catch(error) {
+			console.error('Invalid JSON format: ' + error.message);
+		}
 		break;
+
 	case 'export':
-		console.log('exporting...');
+		Store.exportAnonymizedModelToFile();
 		break;
+
 	default:
 		console.warn(data);
 		console.warn('Action not implemented.');
