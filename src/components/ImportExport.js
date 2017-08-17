@@ -26,8 +26,8 @@ class ImportExport extends Component {
 		input.onchange = () => {
 			const reader = new FileReader();
 			reader.onload = event => {
-				// this.handleAction({ action: 'import', json: event.target.result });
-				this.handleAction({ action: 'import', json: 'wtf' });
+				$('#fnaChromePluginData').text(event.target.result);
+				this.handleAction({ action: 'import' });
 			};
 			reader.readAsText(input.files[0]);
 		};

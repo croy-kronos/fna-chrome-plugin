@@ -34,6 +34,7 @@ class ScriptInjector {
 				}\
 				var dataContainer = document.createElement('div');\
 				dataContainer.setAttribute('id', 'fnaChromePluginData');\
+				dataContainer.setAttribute('style', 'display: none;');\
 				document.getElementsByTagName('body')[0].appendChild(dataContainer);\
 				var script = document.createElement('script');\
 				script.setAttribute('id', 'injectedScript');\
