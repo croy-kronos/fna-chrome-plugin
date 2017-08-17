@@ -4,7 +4,9 @@ import { For } from 'jsx-control-statements';
 import { Panel, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 class InfosComponent extends React.Component {
-	_getStore() {
+	constructor(props) {
+		super(props);
+
 		const injector = new ScriptInjector();
 		injector.injectFromFile("./infos/injects/getStore.js");
 	}

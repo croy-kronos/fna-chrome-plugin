@@ -9,17 +9,28 @@ import FNAPreset from './components/FNAPreset.js';
 class MasterComponent extends React.Component {
 	constructor(props) {
 		super(props);
-		chrome.runtime.onMessage.addListener(
-			function(request, sender, sendResponse) {
-				console.log(JSON.parse(request.data));
-			});
+
+		this.state = {};
+
+		chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+			const data = JSON.parse(request.data);
+			switch(request.type){
+				case 'infos':
+					this.setState({ infos: data });
+					break;
+				case 'debug':
+				case 'presets':
+				case 'importExport':
+			}
+			this.setState({infos: data});
+		});
 	}
 
 	render() {
 		return (
 			<div style={{ width: '400px', height: '400px' }}>
 				<PanelGroup>
-					<InfosComponent />
+					<InfosComponent infos={this.state.infos} />
 					<DebugComponent />
 					<ImportExport />
 					<FNAPreset />
