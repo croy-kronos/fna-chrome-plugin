@@ -19,7 +19,7 @@ class ScriptInjector {
 		rawFile.send();
 	}
 
-	injectFromFile(file, data = {}, callback = () => {}){
+	injectFromFile(file, requestType, data = {}, callback = () => {}){
 		this.fetchFileContent(file, js_code => {
 			const oneLineData = JSON.stringify(data).replace(/\s+/g, ' ').replace(/"/g, '\'').trim();
 			const oneLineJavascript = js_code.replace(/\s+/g, ' ').trim();
@@ -41,7 +41,7 @@ class ScriptInjector {
 				script.textContent = \"(function() {\
 					const data = " + oneLineData + "; " + oneLineJavascript + "})();\";\
 				document.head.appendChild(script);\
-				chrome.runtime.sendMessage({ data: document.getElementById('fnaChromePluginData').textContent }, function(response) { \
+				chrome.runtime.sendMessage({ type: " + requestType + ", data: document.getElementById('fnaChromePluginData').textContent }, function(response) { \
 					\
 				});";
 			this._injector(callback, injection);
