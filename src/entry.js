@@ -23,7 +23,30 @@ class MasterComponent extends React.Component {
 				case 'debug':
 				case 'presets':
 				case 'importExport':
+				break;
 			}
+		});
+	}
+
+	componentWillMount() {
+		chrome.tabs.executeScript({
+			code:	"const previousDataNode = document.getElementById('fnaChromePluginData');\
+					if(previousDataNode){\
+						document.getElementsByTagName('body')[0].removeChild(previousDataNode);\
+					}\
+					const dataContainer = document.createElement('div');\
+					dataContainer.setAttribute('id', 'fnaChromePluginData');\
+					dataContainer.setAttribute('style', 'display: none;');\
+					document.getElementsByTagName('body')[0].appendChild(dataContainer);"
+		});
+	}
+
+	componentWillUnmount() {
+		chrome.tabs.executeScript({
+			code:	"const previousDataNode = document.getElementById('fnaChromePluginData');\
+					if(previousDataNode){\
+						document.getElementsByTagName('body')[0].removeChild(previousDataNode);\
+					}"
 		});
 	}
 

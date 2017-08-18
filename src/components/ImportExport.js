@@ -16,7 +16,7 @@ class ImportExport extends Component {
 	}
 
 	handleAction(data) {
-		this.injector.injectFromFile("./components/injects/ImportExportInject.js", data);
+		this.injector.injectFromFile("./components/injects/ImportExportInject.js", "importExport", data);
 	}
 
 	requestImport() {
@@ -26,8 +26,7 @@ class ImportExport extends Component {
 		input.onchange = () => {
 			const reader = new FileReader();
 			reader.onload = event => {
-				$('#fnaChromePluginData').text(event.target.result);
-				this.handleAction({ action: 'import' });
+				this.handleAction({ action: 'import', json: event.target.result });
 			};
 			reader.readAsText(input.files[0]);
 		};
