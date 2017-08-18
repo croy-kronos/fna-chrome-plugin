@@ -16,7 +16,9 @@ class ImportExport extends Component {
 	}
 
 	handleAction(data) {
-		this.injector.injectFromFile("./components/injects/ImportExportInject.js", "importExport", data);
+		this.injector.injectDataToWebpage(data.json, () => {
+			this.injector.injectFromFile("./components/injects/ImportExportInject.js", "importExport", data.action)
+		});
 	}
 
 	requestImport() {

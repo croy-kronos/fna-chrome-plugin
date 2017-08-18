@@ -19,6 +19,12 @@ class ScriptInjector {
 		rawFile.send();
 	}
 
+	injectDataToWebpage(data, callback) {
+		this._injector(callback, "\
+			document.getElementById('fnaChromePluginData').textContent = " + JSON.stringify(data) + ";\
+		");
+	}
+
 	injectFromFile(file, requestType, data = {}, callback = () => {}){
 		this.fetchFileContent(file, js_code => {
 			const oneLineData = JSON.stringify(data).replace(/\s+/g, ' ').replace(/"/g, '\'').trim();

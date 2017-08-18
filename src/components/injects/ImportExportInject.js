@@ -1,8 +1,9 @@
-switch(data.action) {
+switch(data) {
 	case 'import':
 		try {
 			const json_fna = $('#fnaChromePluginData').text();
 			Store.createFna(JSON.parse(json_fna), { debug: true });
+			$.app.reload();
 		}
 		catch(error) {
 			console.error('Invalid JSON format: ' + error.message);

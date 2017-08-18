@@ -15,7 +15,7 @@ class InfosComponent extends React.Component {
 		const { infos } = this.props;
 		const labeledInfo = [
 			{ label: 'Version', value: infos.app_version },
-			{ label: 'FNA Id', value: infos.fna_id },
+			{ label: 'FNA Id', value: infos.fna_id ? infos.fna_id : 'N/A' },
 			{ label: 'Utilisateur courant', value: `${infos.user_name} (${infos.user_email})` }
 		];
 

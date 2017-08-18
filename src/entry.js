@@ -30,9 +30,8 @@ class MasterComponent extends React.Component {
 
 	componentWillMount() {
 		chrome.tabs.executeScript({
-			code:	"const previousDataNode = document.getElementById('fnaChromePluginData');\
-					if(previousDataNode){\
-						document.getElementsByTagName('body')[0].removeChild(previousDataNode);\
+			code:	"if(document.getElementById('fnaChromePluginData')){\
+						document.getElementsByTagName('body')[0].removeChild(document.getElementById('fnaChromePluginData'));\
 					}\
 					const dataContainer = document.createElement('div');\
 					dataContainer.setAttribute('id', 'fnaChromePluginData');\
@@ -43,9 +42,8 @@ class MasterComponent extends React.Component {
 
 	componentWillUnmount() {
 		chrome.tabs.executeScript({
-			code:	"const previousDataNode = document.getElementById('fnaChromePluginData');\
-					if(previousDataNode){\
-						document.getElementsByTagName('body')[0].removeChild(previousDataNode);\
+			code:	"if(document.getElementById('fnaChromePluginData')){\
+						document.getElementsByTagName('body')[0].removeChild(document.getElementById('fnaChromePluginData'));\
 					}"
 		});
 	}
